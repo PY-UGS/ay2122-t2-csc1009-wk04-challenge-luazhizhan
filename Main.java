@@ -22,7 +22,7 @@ public class Main {
         detectDNA("sample2");
     }
 
-    static void detectDNA(String filename) {
+    private static void detectDNA(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename + ".txt"))) {
 
             String line = reader.readLine();
