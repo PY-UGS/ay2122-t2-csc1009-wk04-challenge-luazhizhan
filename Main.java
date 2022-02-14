@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Background: After some investigation, the scientists found that if a person
@@ -26,9 +24,28 @@ public class Main {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename + ".txt"))) {
 
             String line = reader.readLine();
-            Pattern GTC_PATTERN = Pattern.compile("(s|GTC)");
-            Matcher match = GTC_PATTERN.matcher(line);
-            long count = match.results().count();
+            char c = 'G';
+            int count = 0;
+            for (int i = 0; i < line.length(); i++) {
+                char current = line.charAt(i);
+                if (c == current) {
+                    switch (current) {
+                        case 'G':
+                            c = 'T';
+                            continue;
+                        case 'T':
+                            c = 'C';
+                            continue;
+                        case 'C':
+                            count++;
+                            c = 'G';
+                            continue;
+                    }
+                }
+                if (c != 'G') {
+                    c = (current == 'G') ? 'T' : 'G';
+                }
+            }
 
             System.out.println(filename + " input:");
             if (count > 10) {
